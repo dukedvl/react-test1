@@ -44,8 +44,7 @@
 .flex-container-div {
   display: flex;
   flex: auto;
-  flex-direction:row;
-  flex-wrap:wrap;
-  flex-flow:row;
+  flex-flow:row wrap;
+  align-content:space-between;
 
 }

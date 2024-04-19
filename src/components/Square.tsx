@@ -5,7 +5,7 @@ interface SquareProps {
 
 const Square = (props: SquareProps) => {
     return (
-        <div style={{backgroundColor: props.color,width:100,height:100}}><span>{props.text}</span></div>
+        <div style={{backgroundColor: props.color,width:100,height:100,margin:5}}><span>{props.text}</span></div>
     )
 }
 
