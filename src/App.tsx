@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import Square from './components/Square'
-
+import nautica from './assets/themes/nautica.json';
+import beachy from './assets/themes/beachy.json';
+import words from './assets/words.json';
 
 interface SquareData{
   color:string,
@@ -9,9 +11,9 @@ interface SquareData{
 }
 
 function App() {
-  const [count, setCount] = useState(0)
   const [squares, setSquares] = useState<Array<SquareData>>([]);
   const [squaresLoaded, setSquaresLoaded] = useState(false);
+  const [theme, setTheme] = useState<Array<string>>([]);
 
   useEffect(() => {
     if(!squaresLoaded)
@@ -22,18 +24,22 @@ function App() {
         tempArray.push({color:"#feceba", text:"gaspt"});
         setSquares(tempArray);
         setSquaresLoaded(true);
+        setTheme(beachy);
       }
   }, [squaresLoaded])
 
 function handleAddSquareClick()
 {
   const squaresDeepCopy = JSON.parse(JSON.stringify(squares));
-  squaresDeepCopy.push({ color: 'red', text:'fleep'
+  let colorIndex=Math.floor(Math.random()*5);
+  let wordIndex=Math.floor(Math.random()*5);
+
+  squaresDeepCopy.push({ color: theme[colorIndex], text: words[wordIndex]
  });
 
   setSquares(squaresDeepCopy);
 
-  console.log('adding square');
+  console.log(`adding square, color:${theme[colorIndex]} (Index: ${colorIndex})`);
 }
 function handleClearClick()
 {
@@ -42,15 +48,10 @@ function handleClearClick()
   return (
     <>
       <div>
-      <h1>Vite + React</h1>
+      <h1>Square Time!</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {squares.length}
-        </button>
-
         <button onClick={handleAddSquareClick}>Add square</button>
         <button onClick={handleClearClick}>Clear</button>
-
         <div className='flex-container-div' id='flexDiv'>
         {squares && squares.map((square,key)=>
         <Square key={key} color={square.color} text={square.text}/>
@@ -58,9 +59,6 @@ function handleClearClick()
 
         </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
       </div>
     </>
   )
